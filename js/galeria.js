@@ -66,7 +66,7 @@
     ' return o;}',
     'vec3 borda(float al,float ac,float t,float lit){',
     ' float perf=sin(t*3.14159), fw=meia.x*2.;',
-    ' if(est>2.5){ float pr=sin(t*3.14159); float fr=.5+.5*cos(t*3.14159*5.); float gr=fb3(vec2(al/fw*40.,t*6.))-.5; vec2 cb=vec2(fract(al/(bo*.26))-.5,(t-.74)/.085*.5); float ct=1.-smoothstep(.16,.3,length(cb)); float l=.3+.42*pr+.26*fr*pr+.22*lit*pr+gr*.06+ct*(.25+.25*lit); vec3 g=vec3(.79,.6,.28)*l; g+=vec3(1.,.9,.62)*pow(clamp(fr*pr*(.6+.4*lit),0.,1.),9.)*.55+vec3(1.,.92,.7)*ct*smoothstep(.0,.2,-length(cb-vec2(-.06,-.06))+.18)*.35; g*=1.-.35*(1.-smoothstep(.0,.12,abs(t-.74)-.11))*(1.-ct); return max(g,0.)*(1.-.5*smoothstep(.84,1.,t)); }  vec3 base=est<.5?vec3(.03,.028,.027):est<1.5?vec3(.085,.077,.068):vec3(.17,.11,.055);',
+    ' if(est>2.5){ float pr=sin(t*3.14159); float l=.38+.42*pr+.3*lit*(.35+.65*pr); vec3 g=mix(vec3(.5,.36,.15),vec3(.94,.8,.5),clamp(l,0.,1.)); g+=vec3(1.,.94,.78)*exp(-pow((t-.34)/.08,2.))*(.12+.16*max(lit,0.)); g*=1.-.4*smoothstep(.82,1.,t)-.3*(1.-smoothstep(0.,.14,t)); return g; } vec3 base=est<.5?vec3(.03,.028,.027):est<1.5?vec3(.085,.077,.068):vec3(.17,.11,.055);',
     ' float veio=est>.5&&est<1.5?fb3(vec2(al/fw*3.,ac/bo*2.)):.5;',
     ' float esc=est>1.5?fb3(vec2(al/fw*.8,ac/bo*2.5)):.5;',
     ' vec3 c=base*(.7+.55*perf)*(.85+.3*veio)*(.92+.16*esc);',
@@ -218,7 +218,7 @@
     function um(q, t, W, H, u, sombra, parte) {
       var e = ease((t - .15 - q.ordem * .14) / 1.35), lev = 1 - e;
       var fw = q.w * H, est = q.est;
-      var bo = fw * (est === 3 ? .09 : est === 0 ? .052 : est === 1 ? .046 : .03), ma = fw * (est === 3 ? .055 : est === 0 ? .085 : est === 1 ? .06 : .03);
+      var bo = fw * (est === 3 ? .032 : est === 0 ? .03 : est === 1 ? .03 : .03), ma = fw * (est === 3 ? .085 : est === 0 ? .09 : est === 1 ? .08 : .08);
       var jw = fw - 2 * (bo + ma), fh = jw * 1.25 + 2 * (bo + ma);
       var rot = q.rot * Math.PI / 180, esc = 1 + .07 * lev;
       var cx = W / 2 + q.x * H, cy = q.y * H - 10 * u * lev;
@@ -255,27 +255,27 @@
     orn: { pc: { oa: .075, oc: [.4, .9], ol: [9, 0, .1] }, baixa: { oa: .075, oc: [.33, .78], ol: [9, 0, .1] }, cel: { oa: .08, oc: [.5, .98], ol: [9, 0, .1] } },
     pc: [
       { arts: C, x: 0, y: .37, w: .38, rot: -1.5, est: 3, off: 0, ordem: 0, c0: [.5, .4] },
-      { arts: ['00', '04'], x: -.47, y: .34, w: .28, rot: 6.5, est: 1, off: 1.9, ordem: 1 },
+      { arts: ['00', '04'], x: -.47, y: .34, w: .28, rot: 6.5, est: 3, off: 1.9, ordem: 1 },
       { arts: ['10', '08'], x: .46, y: .36, w: .29, rot: -5, est: 3, off: 3.8, ordem: 2 },
       { arts: ['01', '07'], x: -.86, y: .25, w: .25, rot: -9, est: 3, off: 5.7, ordem: 3 },
-      { arts: ['02', '06'], x: .85, y: .23, w: .25, rot: 8, est: 0, off: 7.6, ordem: 4 },
-      { arts: ['09', '03'], x: -.80, y: .76, w: .22, rot: 11, est: 2, off: 9.5, ordem: 5 },
+      { arts: ['02', '06'], x: .85, y: .23, w: .25, rot: 8, est: 3, off: 7.6, ordem: 4 },
+      { arts: ['09', '03'], x: -.80, y: .76, w: .22, rot: 11, est: 3, off: 9.5, ordem: 5 },
       { arts: ['05', '11'], x: .81, y: .77, w: .22, rot: -7, est: 3, off: 11.4, ordem: 6 }
     ],
     baixa: [
       { arts: C, x: 0, y: .31, w: .3, rot: -1.5, est: 3, off: 0, ordem: 0, c0: [.5, .4] },
-      { arts: ['00', '04'], x: -.5, y: .3, w: .25, rot: 6.5, est: 1, off: 1.9, ordem: 1 },
+      { arts: ['00', '04'], x: -.5, y: .3, w: .25, rot: 6.5, est: 3, off: 1.9, ordem: 1 },
       { arts: ['10', '08'], x: .5, y: .32, w: .25, rot: -5, est: 3, off: 3.8, ordem: 2 },
       { arts: ['01', '07'], x: -.92, y: .28, w: .24, rot: -9, est: 3, off: 5.7, ordem: 3 },
-      { arts: ['02', '06'], x: .92, y: .27, w: .24, rot: 8, est: 0, off: 7.6, ordem: 4 },
-      { arts: ['09', '03'], x: -1.32, y: .38, w: .22, rot: 11, est: 2, off: 9.5, ordem: 5 },
+      { arts: ['02', '06'], x: .92, y: .27, w: .24, rot: 8, est: 3, off: 7.6, ordem: 4 },
+      { arts: ['09', '03'], x: -1.32, y: .38, w: .22, rot: 11, est: 3, off: 9.5, ordem: 5 },
       { arts: ['05', '11'], x: 1.32, y: .4, w: .22, rot: -7, est: 3, off: 11.4, ordem: 6 }
     ],
     cel: [
-      { arts: ['00', '04'], x: -.27, y: .15, w: .25, rot: 9, est: 1, off: 2.6, ordem: 1 },
+      { arts: ['00', '04'], x: -.27, y: .15, w: .25, rot: 9, est: 3, off: 2.6, ordem: 1 },
       { arts: ['10', '08'], x: .27, y: .16, w: .25, rot: -8, est: 3, off: 5.2, ordem: 2 },
       { arts: ['01', '07'], x: -.28, y: .84, w: .24, rot: -7, est: 3, off: 7.8, ordem: 3 },
-      { arts: ['02', '06'], x: .28, y: .85, w: .24, rot: 10, est: 0, off: 10.4, ordem: 4 },
+      { arts: ['02', '06'], x: .28, y: .85, w: .24, rot: 10, est: 3, off: 10.4, ordem: 4 },
       { arts: C, x: 0, y: .5, w: .5, rot: -2, est: 3, off: 0, ordem: 0, c0: [.5, .4] }
     ]
   };
