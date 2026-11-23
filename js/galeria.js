@@ -66,7 +66,7 @@
     ' return o;}',
     'vec3 borda(float al,float ac,float t,float lit){',
     ' float perf=sin(t*3.14159), fw=meia.x*2.;',
-    ' if(est>2.5){ float pr=sin(t*3.14159), mo=.55+.45*sin(t*3.14159*3.2-.4);   float en=fb3(vec2(al/fw*18.,t*2.4)); float rel=smoothstep(.42,.72,en)*smoothstep(.1,.32,t)*smoothstep(.9,.66,t);   float l=.32+.55*pr*mo+.38*rel+.22*lit*pr; vec3 g=vec3(.8,.6,.27)*l;   g+=vec3(1.,.88,.58)*pow(clamp(pr*mo*(.62+.38*lit)+rel*.25,0.,1.),7.)*.65;   g-=vec3(.12,.1,.06)*(1.-smoothstep(.25,.55,en))*smoothstep(.2,.4,t)*smoothstep(.8,.6,t);   return max(g,0.)*(1.-.5*smoothstep(.84,1.,t)); }  vec3 base=est<.5?vec3(.03,.028,.027):est<1.5?vec3(.085,.077,.068):vec3(.17,.11,.055);',
+    ' if(est>2.5){ float pr=sin(t*3.14159); float fr=.5+.5*cos(t*3.14159*5.); float gr=fb3(vec2(al/fw*40.,t*6.))-.5; vec2 cb=vec2(fract(al/(bo*.26))-.5,(t-.74)/.085*.5); float ct=1.-smoothstep(.16,.3,length(cb)); float l=.3+.42*pr+.26*fr*pr+.22*lit*pr+gr*.06+ct*(.25+.25*lit); vec3 g=vec3(.79,.6,.28)*l; g+=vec3(1.,.9,.62)*pow(clamp(fr*pr*(.6+.4*lit),0.,1.),9.)*.55+vec3(1.,.92,.7)*ct*smoothstep(.0,.2,-length(cb-vec2(-.06,-.06))+.18)*.35; g*=1.-.35*(1.-smoothstep(.0,.12,abs(t-.74)-.11))*(1.-ct); return max(g,0.)*(1.-.5*smoothstep(.84,1.,t)); }  vec3 base=est<.5?vec3(.03,.028,.027):est<1.5?vec3(.085,.077,.068):vec3(.17,.11,.055);',
     ' float veio=est>.5&&est<1.5?fb3(vec2(al/fw*3.,ac/bo*2.)):.5;',
     ' float esc=est>1.5?fb3(vec2(al/fw*.8,ac/bo*2.5)):.5;',
     ' vec3 c=base*(.7+.55*perf)*(.85+.3*veio)*(.92+.16*esc);',
